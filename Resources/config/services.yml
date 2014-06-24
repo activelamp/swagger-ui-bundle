@@ -1,0 +1,7 @@
+parameters:
+#    al_swagger_ui.example.class: ActiveLAMP\Bundle\SwaggerUIBundle\Example
+
+services:
+#    al_swagger_ui.example:
+#        class: %al_swagger_ui.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
