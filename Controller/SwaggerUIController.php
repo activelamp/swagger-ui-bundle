@@ -11,7 +11,7 @@ class SwaggerUIController extends Controller
     {
         $url = $this->get('service_container')->getParameter('al_swagger_ui.resource_list_url');
 
-        $url = sprintf('%s://%s%s', $request->getScheme(), $request->getHttpHost(), $url);
+        $url = sprintf('%s://%s%s%s', $request->getScheme(), $request->getHttpHost(), $request->getBaseUrl(), $url);
 
         return $this->render('ALSwaggerUIBundle:SwaggerUI:index.html.twig', array(
             'resource_list_url' => $url,
