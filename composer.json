@@ -1,0 +1,20 @@
+{
+    "name": "activelamp/swagger-ui-bundle",
+    "description": "Creates a Swagger UI page in your Symfony2 application",
+    "authors": [
+        {
+            "name": "Bez Hermoso",
+            "email": " bez@activelamp.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "ActiveLAMP\\Bundle\\SwaggerUIBundle": ""
+        }
+    }
+}
