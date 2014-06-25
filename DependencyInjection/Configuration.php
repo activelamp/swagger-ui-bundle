@@ -27,6 +27,13 @@ class Configuration implements ConfigurationInterface
         $rootNode->addDefaultsIfNotSet()
                  ->children()
                     ->scalarNode('resource_list_url')->defaultValue('/api-docs')->end()
+                    ->arrayNode('static_resources')
+                        ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('resource_dir')->defaultValue(null)->end()
+                            ->scalarNode('resource_list_filename')->defaultValue('api-docs.json')->end()
+                        ->end()
+                    ->end()
                  ->end();
 
         return $treeBuilder;

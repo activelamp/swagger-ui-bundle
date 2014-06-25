@@ -1,0 +1,9 @@
+al_swagger_ui_static_resource_list:
+    path: /
+    defaults:
+        _controller: ALSwaggerUIBundle:StaticResources:resourceList
+
+al_swagger_ui_static_api_declaration:
+    path: /{resource}
+    defaults:
+        _controller: ALSwaggerUIBundle:StaticResources:apiDeclaration
