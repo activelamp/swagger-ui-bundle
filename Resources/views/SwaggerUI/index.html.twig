@@ -4,31 +4,37 @@
     <title>Swagger UI</title>
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
     {% block stylesheets %}
-        {% stylesheets
-            "@ALSwaggerUIBundle/Resources/public/css/reset.css"
-            "@ALSwaggerUIBundle/Resources/public/css/screen.css"
-        %}
-            <link href="{{ asset_url }}" rel="stylesheet" type="text/css" media="screen" />
-            <link href="{{ asset_url }}" rel="stylesheet" type="text/css" media="print" />
-        {% endstylesheets %}
+            <link href="{{ asset('bundles/alswaggerui/css/reset.css') }}"
+                  type="text/css"
+                  rel="stylesheet"
+                  media="screen" />
+            <link href="{{ asset('bundles/alswaggerui/css/reset.css') }}"
+                  type="text/css"
+                  rel="stylesheet"
+                  media="print" />
+            <link href="{{ asset('bundles/alswaggerui/css/screen.css') }}"
+                  type="text/css"
+                  rel="stylesheet"
+                  media="screen" />
+            <link href="{{ asset('bundles/alswaggerui/css/screen.css') }}"
+                  type="text/css"
+                  rel="stylesheet"
+                  media="print" />
+
     {% endblock %}
     {% block javascripts %}
-        {% javascripts
-            "@ALSwaggerUIBundle/Resources/public/lib/shred.bundle.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/jquery-1.8.0.min.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/jquery.slideto.min.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/jquery.wiggle.min.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/jquery.ba-bbq.min.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/handlebars-1.0.0.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/underscore-min.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/backbone-min.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/swagger.js"
-            "@ALSwaggerUIBundle/Resources/public/js/swagger-ui.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/highlight.7.3.pack.js"
-            "@ALSwaggerUIBundle/Resources/public/lib/swagger-oauth.js"
-        %}
-            <script src="{{ asset_url }}" type="text/javascript"></script>
-        {% endjavascripts %}
+        <script src="{{ asset('bundles/alswaggerui/lib/shred.bundle.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/jquery-1.8.0.min.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/jquery.slideto.min.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/jquery.wiggle.min.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/jquery.ba-bbq.min.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/handlebars-1.0.0.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/underscore-min.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/backbone-min.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/swagger.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/js/swagger-ui.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/highlight.7.3.pack.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/swagger-oauth.js') }}"></script>
         <script type="text/javascript">
             $(function () {
                 window.swaggerUi = new SwaggerUi({

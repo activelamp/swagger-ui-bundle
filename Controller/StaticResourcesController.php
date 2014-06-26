@@ -10,6 +10,7 @@ namespace ActiveLAMP\Bundle\SwaggerUIBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -63,8 +64,10 @@ class StaticResourcesController extends Controller
             }
 
             foreach ($files as $file) {
-                $response = new Response($file->getContents());
-                $response->headers->set('Content-type', 'application/json');
+
+                $data = json_decode($file->getContents(), true);
+                $data['basePath'] = $request->getBaseUrl() . $data['basePath'];
+                $response = new JsonResponse($data);
                 return $response;
             }
 
