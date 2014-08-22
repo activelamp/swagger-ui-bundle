@@ -38,16 +38,4 @@ class SwaggerUIControllerTest extends WebTestCase
         $content = $response->getContent();
         $this->assertRegExp('#url:\s?"http:\\\/\\\/petstore.swagger.wordnik.com\\\/api\\\/api-docs"#', $content);
     }
-
-    public function testNelmioIntegration()
-    {
-        $client = static::createClient(array('environment' => 'nelmio'));
-        $client->request('GET', '/documentation/');
-
-        $response = $client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
-
-        $content = $response->getContent();
-        $this->assertRegExp('#url:\s?"\\\/nelmio-api-docs"#', $content);
-    }
 } 

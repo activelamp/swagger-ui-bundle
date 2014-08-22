@@ -1,6 +1,0 @@
-_main:
-    resource: routing.yml
-
-nelmio_api_doc:
-    resource: @NelmioApiDocBundle/Resources/config/swagger_routing.yml
-    prefix: /nelmio-api-docs
