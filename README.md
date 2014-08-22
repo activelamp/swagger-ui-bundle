@@ -87,12 +87,9 @@ Setting `resource_list` to `al_swagger_ui_static_resource_list` will then point 
 
 ### Integration with NelmioApiDocBundle
 
-If you are using [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle) to document your REST API, it is as easy as pointing `resource_list` to the route `NelmioApiDocBundle` provides that produces Swagger-compliant documentation:
+If you are using [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle) to document your REST API, the `resource_list` would automatically default to `nelmio_api_doc_swagger_resource_list`. All you need to do is to activate the `swagger_routing.yml` route from `NelmioApiDocBundle` if you haven't already.
 
-```yaml
-al_swagger_ui:
-    resource_list: nelmio_api_doc_swagger_resource_list
-```
+Prior to `0.2.*`, you will have to manually set `resource_list` to `nelmio_api_doc_swagger_resource_list`.
 
 Head to the [Swagger support documentation](https://github.com/nelmio/NelmioApiDocBundle/tree/master/Resources/doc/swagger-support.md) for more information how to enable Swagger support in `NelmioApiDocBundle`.
 
