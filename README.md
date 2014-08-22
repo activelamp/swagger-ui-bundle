@@ -11,7 +11,7 @@ Creates a [swagger-ui](https://github.com/wordnik/swagger-ui) page (something li
 
 Install via Composer:
 
-`$ composer require activelamp/swagger-ui-bundle:dev-master`
+`$ composer require activelamp/swagger-ui-bundle:0.1.*`
 
 Enable in `app/AppKernel.php`:
 
