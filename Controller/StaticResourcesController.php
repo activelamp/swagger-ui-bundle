@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class StaticResourcesController
  *
- * @package ActiveLAMP\Bundle\SwaggerUIBundle\Controller
  * @author Bez Hermoso <bez@activelamp.com>
  */
 class StaticResourcesController extends Controller

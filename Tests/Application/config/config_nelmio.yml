@@ -1,0 +1,14 @@
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_nelmio.yml"
+    validation:
+        enabled: false
+    session:
+        storage_id: session.storage.mock_file
+    templating:
+        engines:
+            - twig
+    secret: fizzbuzz
+    test: ~
+
+al_swagger_ui: ~

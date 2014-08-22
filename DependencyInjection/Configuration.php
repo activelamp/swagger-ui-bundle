@@ -12,6 +12,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    protected $nelmioApiDoc;
+
+    public function __construct($nelmioApiDoc = false)
+    {
+        $this->nelmioApiDoc = $nelmioApiDoc;
+    }
     /**
      * {@inheritDoc}
      */
@@ -51,6 +57,13 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                  ->end();
+
+        if ($this->nelmioApiDoc === true) {
+            $rootNode
+                ->children()
+                    ->scalarNode('resource_list')->defaultValue('nelmio_api_doc_swagger_resource_list')->end()
+                ->end();
+        }
 
         return $treeBuilder;
     }

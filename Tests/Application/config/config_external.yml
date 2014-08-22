@@ -1,0 +1,5 @@
+imports:
+    - { resource: config_test.yml }
+
+al_swagger_ui:
+    resource_list: http://petstore.swagger.wordnik.com/api/api-docs
