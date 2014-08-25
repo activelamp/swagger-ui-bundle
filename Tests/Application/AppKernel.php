@@ -4,6 +4,7 @@
 namespace ActiveLAMP\Bundle\SwaggerUIBundle\Tests\Application;
 
 use ActiveLAMP\Bundle\SwaggerUIBundle\ALSwaggerUIBundle;
+use Nelmio\ApiDocBundle\NelmioApiDocBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -26,6 +27,10 @@ class AppKernel extends Kernel
             new TwigBundle(),
             new ALSwaggerUIBundle(),
         );
+
+        if ($this->environment === 'nelmio') {
+            $bundles[] = new NelmioApiDocBundle();
+        }
 
         return $bundles;
     }

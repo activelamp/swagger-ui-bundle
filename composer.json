@@ -18,7 +18,8 @@
         "symfony/css-selector": "~2.1",
         "symfony/browser-kit": "~2.1",
         "symfony/yaml": "~2.1",
-        "sensio/framework-extra-bundle": "~2.1"
+        "sensio/framework-extra-bundle": "~2.1",
+        "nelmio/api-doc-bundle" : "2.7.*@dev"
     },
     "license": "MIT",
     "autoload": {

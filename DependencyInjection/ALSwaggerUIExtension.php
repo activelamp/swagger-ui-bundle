@@ -20,7 +20,8 @@ class ALSwaggerUIExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
+        $bundles = $container->getParameter('kernel.bundles');
+        $configuration = new Configuration(isset($bundles['NelmioApiDocBundle']));
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
@@ -31,6 +32,13 @@ class ALSwaggerUIExtension extends Extension
 
         $container->setParameter('al_swagger_ui.static_resources_dir', $config['static_resources']['resource_dir']);
         $container->setParameter('al_swagger_ui.static_resource_list_filename', $config['static_resources']['resource_list_filename']);
-
     }
+
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        $bundles = $container->getParameter('kernel.bundles');
+        return new Configuration(isset($bundles['NelmioApiDocBundle']));
+    }
+
+
 }
