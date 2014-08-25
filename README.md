@@ -11,7 +11,7 @@ Creates a [swagger-ui](https://github.com/wordnik/swagger-ui) page (something li
 
 Install via Composer:
 
-`$ composer require activelamp/swagger-ui-bundle:0.2.*`
+`$ composer require activelamp/swagger-ui-bundle:0.1.*`
 
 Enable in `app/AppKernel.php`:
 
@@ -84,23 +84,6 @@ al_swagger_ui:
 This will result in a `/swagger-docs` route to return the resource-list, and `/swagger-docs/<resource_name>` to serve API declarations.
 
 Setting `resource_list` to `al_swagger_ui_static_resource_list` will then point `swagger-ui` to the right direction.
-
-### Integration with NelmioApiDocBundle
-
-If you are using [NelmioApiDocBundle](https://github.com/nelmio/NelmioApiDocBundle) to document your REST API, it is as easy as pointing `resource_list` to the route `NelmioApiDocBundle` provides that produces Swagger-compliant documentation:
-
-```yaml
-al_swagger_ui:
-    resource_list: nelmio_api_doc_swagger_resource_list
-```
-
--------
-
-__Since `0.2.*`, setting `resource_list` to the `nelmio_api_doc...` route is no longer necessary as this will be automatically set for you as long as `NelmioApiDocBundle` is registered.__ Of course, you can still override it if somehow you need to consume a resource list from another source.
-
-------
-
-Head to the [Swagger support documentation](https://github.com/nelmio/NelmioApiDocBundle/tree/master/Resources/doc/swagger-support.md) for more information how to enable Swagger support in `NelmioApiDocBundle`.
 
 ## Configuration reference
 
