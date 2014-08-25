@@ -5,6 +5,9 @@ namespace ActiveLAMP\Bundle\SwaggerUIBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @author Bez Hermoso <bez@activelamp.com>
+ */
 class SwaggerUIController extends Controller
 {
     public function indexAction(Request $request)
