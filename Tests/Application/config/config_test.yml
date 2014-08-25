@@ -1,0 +1,24 @@
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: true
+    validation:
+        enabled: false
+    session:
+        storage_id: session.storage.mock_file
+    templating:
+        engines:
+            - twig
+    secret: fizzbuzz
+    test: ~
+
+al_swagger_ui:
+    resource_list: al_swagger_ui_static_resource_list
+    static_resources:
+        resource_dir: "%kernel.root_dir%/Resources/swagger-docs"
+    js_config:
+        expansion: full
+        sorter: alpha
+        highlight_size_threshold: 100
+        boolean_values: [0, 1]
+

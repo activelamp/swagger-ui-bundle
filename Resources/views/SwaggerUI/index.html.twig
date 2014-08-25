@@ -45,7 +45,7 @@
                 docExpansion: {{ js_config.expansion|json_encode|raw }},
                 sorter: {{ js_config.sorter|json_encode|raw }},
                 booleanValues: {{ js_config.boolean_values|json_encode|raw }},
-                highlightSizeThreshold: {{ json_config.highlight_size_threshold|json_encode|raw }}
+                highlightSizeThreshold: {{ js_config.highlight_size_threshold|json_encode|raw }}
             });
 
             /* $('#input_apiKey').change(function() {
