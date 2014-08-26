@@ -3,3 +3,10 @@ imports:
 
 al_swagger_ui:
     resource_list: http://petstore.swagger.wordnik.com/api/api-docs
+    authentication:
+        oauth:
+            enable: false
+        http:
+            enable: true
+            key_name: api_key
+            delivery: header

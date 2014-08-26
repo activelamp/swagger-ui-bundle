@@ -1,10 +1,20 @@
 {% extends "ALSwaggerUIBundle::layout.html.twig" %}
-{% block stylesheets %}
-    {{ parent() }}
-        <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
+{% block al_swagger_ui_stylesheets %}
+    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
+    <link href="{{ asset('bundles/alswaggerui/css/reset.css') }}"
+          type="text/css"
+          rel="stylesheet"
+          media="print" />
+    <link href="{{ asset('bundles/alswaggerui/css/screen.css') }}"
+          type="text/css"
+          rel="stylesheet"
+          media="screen" />
+    <link href="{{ asset('bundles/alswaggerui/css/screen.css') }}"
+          type="text/css"
+          rel="stylesheet"
+          media="print" />
 {% endblock %}
-{% block javascripts %}
-    {{ parent() }}
+{% block al_swagger_ui_javascripts %}
     <script src="{{ asset('bundles/alswaggerui/lib/shred.bundle.js') }}"></script>
     <script src="{{ asset('bundles/alswaggerui/lib/jquery-1.8.0.min.js') }}"></script>
     <script src="{{ asset('bundles/alswaggerui/lib/jquery.slideto.min.js') }}"></script>
@@ -16,49 +26,52 @@
     <script src="{{ asset('bundles/alswaggerui/lib/swagger.js') }}"></script>
     <script src="{{ asset('bundles/alswaggerui/js/swagger-ui.js') }}"></script>
     <script src="{{ asset('bundles/alswaggerui/lib/highlight.7.3.pack.js') }}"></script>
+    {% if auth_config.oauth.enable %}
     <script src="{{ asset('bundles/alswaggerui/lib/swagger-oauth.js') }}"></script>
-    <script type="text/javascript">
-        $(function () {
-            window.swaggerUi = new SwaggerUi({
-                url: {{ resource_list_url|json_encode|raw }},
-                dom_id: "swagger-ui-container",
-                supportedSubmitMethods: {{ js_config.supported_submit_methods|json_encode|raw }},
-                onComplete: function(swaggerApi, swaggerUi){
-                    log("Loaded SwaggerUI");
+    {% endif %}
+<script type="text/javascript">
+    $(function () {
+        window.swaggerUi = new SwaggerUi({
+            url: {{ resource_list_url|json_encode|raw }},
+            dom_id: "swagger-ui-container",
+            supportedSubmitMethods: {{ js_config.supported_submit_methods|json_encode|raw }},
+            onComplete: function(swaggerApi, swaggerUi){
+                log("Loaded SwaggerUI");
 
-                    if(typeof initOAuth == "function") {
-                        /*
-                         initOAuth({
-                         clientId: "your-client-id",
-                         realm: "your-realms",
-                         appName: "your-app-name"
-                         });
-                         */
-                    }
-                    $('pre code').each(function(i, e) {
-                        hljs.highlightBlock(e)
-                    });
-                },
-                onFailure: function(data) {
-                    log("Unable to Load SwaggerUI");
-                },
-                docExpansion: {{ js_config.expansion|json_encode|raw }},
-                sorter: {{ js_config.sorter|json_encode|raw }},
-                booleanValues: {{ js_config.boolean_values|json_encode|raw }},
-                highlightSizeThreshold: {{ js_config.highlight_size_threshold|json_encode|raw }}
-            });
+                if(typeof initOAuth == "function") {
 
-            /* $('#input_apiKey').change(function() {
-                var key = $('#input_apiKey')[0].value;
-                log("key: " + key);
-                if(key && key.trim() != "") {
-                    log("added key " + key);
-                    window.authorizations.add("key", new ApiKeyAuthorization("api_key", key, "query"));
+                     initOAuth({
+                     clientId: {{ auth_config.oauth.client_id|json_encode|raw }},
+                     realm: {{ auth_config.oauth.realm|json_encode|raw }},
+                     appName: {{ auth_config.oauth.app_name|json_encode|raw }}
+                     });
                 }
-            }) */
-            window.swaggerUi.load();
+                $('pre code').each(function(i, e) {
+                    hljs.highlightBlock(e)
+                });
+            },
+            onFailure: function(data) {
+                log("Unable to Load SwaggerUI");
+            },
+            docExpansion: {{ js_config.expansion|json_encode|raw }},
+            sorter: {{ js_config.sorter|json_encode|raw }},
+            booleanValues: {{ js_config.boolean_values|json_encode|raw }},
+            highlightSizeThreshold: {{ js_config.highlight_size_threshold|json_encode|raw }}
         });
-    </script>
+
+        {% if auth_config.http.enable %}
+        $('#input_apiKey').change(function() {
+            var key = $('#input_apiKey')[0].value;
+            log("key: " + key);
+            if(key && key.trim() != "") {
+                log("added key " + key);
+                window.authorizations.add("key", new ApiKeyAuthorization({{ auth_config.http.key_name|json_encode|raw }}, key, {{ auth_config.http.delivery|json_encode|raw }}));
+            }
+        });
+        {% endif %}
+        window.swaggerUi.load();
+    });
+</script>
 {% endblock %}
 {% block al_swagger_ui_auth_form %}
 {% endblock %}

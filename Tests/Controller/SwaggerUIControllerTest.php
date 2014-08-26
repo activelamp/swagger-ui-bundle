@@ -27,15 +27,54 @@ class SwaggerUIControllerTest extends WebTestCase
         $this->assertRegExp('/highlightSizeThreshold:\s?100/', $content);
     }
 
+    public function testOauth()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/documentation/');
+
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $this->assertCount(1, $crawler->filter('#message-bar'));
+        $this->assertCount(1, $crawler->filter('#swagger-ui-container'));
+
+        $content = $response->getContent();
+        $this->assertRegExp('/realm:\s?"foobar"/', $content);
+        $this->assertRegExp('/initOAuth\({/', $content);
+        $this->assertRegExp('/clientId:\s?8324737/', $content);
+        $this->assertRegExp('/appName:\s?"ActiveLAMP Swagger UI"/', $content);
+        $this->assertRegExp('/src="(.*)swagger-oauth.js"/', $content);
+        $this->assertNotRegExp(
+             '/window\.authorizations\.add\("key"/',
+                 $content
+        );
+    }
+
     public function testExternalUrl()
     {
         $client = static::createClient(array('environment' => 'external'));
-        $crawler = $client->request('GET', '/documentation/');
+        $client->request('GET', '/documentation/');
 
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
 
         $content = $response->getContent();
         $this->assertRegExp('#url:\s?"http:\\\/\\\/petstore.swagger.wordnik.com\\\/api\\\/api-docs"#', $content);
+    }
+
+    public function testHttpAuth()
+    {
+        $client = static::createClient(array('environment' => 'external'));
+        $client->request('GET', '/documentation/');
+
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+
+        $content = $response->getContent();
+        $this->assertRegExp(
+             '/window\.authorizations\.add\("key", new ApiKeyAuthorization\("api_key", key, "header"\)\);/',
+             $content
+        );
+        $this->assertNotRegExp('/src="(.*)swagger-oauth.js"/', $content);
     }
 } 
