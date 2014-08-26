@@ -40,7 +40,6 @@ al_swagger_ui:
     resource: @ALSwaggerUIBundle/Resources/config/routing.yml
     prefix: /docs
 ```
-Done!
 
 The swagger-ui page for your REST API should now be served at 
 `http://yourapp.com/docs`.
