@@ -9,9 +9,9 @@ Creates a [swagger-ui](https://github.com/wordnik/swagger-ui) page (something li
 
 # Documentation
 
-* [Installation & Usage](https://github.com/bezhermoso/swagger-ui-bundle/blob/master/Resources/doc/installation-and-usage.md)
-* [Authentication](https://github.com/bezhermoso/swagger-ui-bundle/blob/master/Resources/doc/authentication.md)
-* [Overriding templates](https://github.com/bezhermoso/swagger-ui-bundle/blob/master/Resources/doc/overriding-templates.md)
+* [Installation & Usage](https://github.com/activelamp/swagger-ui-bundle/blob/master/Resources/doc/installation-and-usage.md)
+* [Authentication](https://github.com/activelamp/swagger-ui-bundle/blob/master/Resources/doc/authentication.md)
+* [Overriding templates](https://github.com/activelamp/swagger-ui-bundle/blob/master/Resources/doc/overriding-templates.md)
 
 ## Configuration reference
 
