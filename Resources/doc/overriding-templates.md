@@ -13,7 +13,7 @@ All these should be present in the overriding Twig template in order for the doc
 
 Example template:
 
-```twig
+```html
 {% extends "::layout.html.twig" %}
 
 {% block stylesheets %}
