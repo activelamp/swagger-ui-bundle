@@ -9,7 +9,8 @@ Creates a [swagger-ui](https://github.com/wordnik/swagger-ui) page (something li
 
 # Documentation
 
-* [Installation & Basic Usage](https://github.com/bezhermoso/swagger-ui-bundle/blob/master/Resources/doc/index.md)
+* [Installation & Usage](https://github.com/bezhermoso/swagger-ui-bundle/blob/master/Resources/doc/installation-and-usage.md)
+* [Authentication](https://github.com/bezhermoso/swagger-ui-bundle/blob/master/Resources/doc/authentication.md)
 
 ## Configuration reference
 
