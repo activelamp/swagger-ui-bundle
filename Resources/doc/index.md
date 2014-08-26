@@ -5,7 +5,7 @@ Swagger UI Bundle
 
 Install via Composer:
 
-`$ composer require activelamp/swagger-ui-bundle:0.1.*`
+`$ composer require activelamp/swagger-ui-bundle:0.2.*`
 
 Enable in `app/AppKernel.php`:
 
