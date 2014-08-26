@@ -25,4 +25,14 @@ al_swagger_ui:
         sorter:               null
         highlight_size_threshold:  null
         boolean_values: ['true', 'false']
+    authentication:
+        oauth:
+            enable:               false
+            client_id:            null
+            realm:                null
+            app_name:             null
+        http:
+            enable:               false
+            key_name:             null
+            delivery:             null
 ```
