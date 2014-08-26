@@ -21,4 +21,9 @@ al_swagger_ui:
         sorter: alpha
         highlight_size_threshold: 100
         boolean_values: [0, 1]
-
+    authentication:
+        oauth:
+            enable: true
+            realm: foobar
+            app_name: "ActiveLAMP Swagger UI"
+            client_id: 8324737

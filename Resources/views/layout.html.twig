@@ -7,18 +7,8 @@
               type="text/css"
               rel="stylesheet"
               media="screen" />
-        <link href="{{ asset('bundles/alswaggerui/css/reset.css') }}"
-              type="text/css"
-              rel="stylesheet"
-              media="print" />
-        <link href="{{ asset('bundles/alswaggerui/css/screen.css') }}"
-              type="text/css"
-              rel="stylesheet"
-              media="screen" />
-        <link href="{{ asset('bundles/alswaggerui/css/screen.css') }}"
-              type="text/css"
-              rel="stylesheet"
-              media="print" />
+        {% block al_swagger_ui_stylesheets %}
+        {% endblock %}
     {% endblock %}
 </head>
 <body class="swagger-section">
@@ -32,6 +22,8 @@
 {% block al_swagger_ui_content %}
 {% endblock %}
 {% block javascripts %}
+    {% block al_swagger_ui_javascripts %}
+    {% endblock %}
 {% endblock %}
 </body>
 </html>
