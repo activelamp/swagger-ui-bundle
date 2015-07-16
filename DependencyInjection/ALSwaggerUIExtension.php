@@ -28,6 +28,7 @@ class ALSwaggerUIExtension extends Extension
 
         $container->setParameter('al_swagger_ui.resource_list', $config['resource_list']);
         $container->setParameter('al_swagger_ui.js_config', $config['js_config']);
+        $container->setParameter('al_swagger_ui.auth_config', $config['auth_config']);
 
         $container->setParameter('al_swagger_ui.static_resources_dir', $config['static_resources']['resource_dir']);
         $container->setParameter('al_swagger_ui.static_resource_list_filename', $config['static_resources']['resource_list_filename']);

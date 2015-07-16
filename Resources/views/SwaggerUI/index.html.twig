@@ -1,80 +1,99 @@
 {% extends "ALSwaggerUIBundle::layout.html.twig" %}
-{% block al_swagger_ui_stylesheets %}
-    <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
-    <link href="{{ asset('bundles/alswaggerui/css/reset.css') }}"
-          type="text/css"
-          rel="stylesheet"
-          media="print" />
-    <link href="{{ asset('bundles/alswaggerui/css/screen.css') }}"
-          type="text/css"
-          rel="stylesheet"
-          media="screen" />
-    <link href="{{ asset('bundles/alswaggerui/css/screen.css') }}"
-          type="text/css"
-          rel="stylesheet"
-          media="print" />
+
+{% block al_swagger_ui_favicons %}
+    <link rel="icon" type="image/png" href="{{ asset('bundles/alswaggerui/images/favicon-32x32.png') }}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ asset('bundles/alswaggerui/images/favicon-16x16.png') }}" sizes="16x16" />
 {% endblock %}
+
+{% block al_swagger_ui_stylesheets %}
+    <link href="{{ asset('bundles/alswaggerui/css/typography.css') }}" media='screen' rel='stylesheet' type='text/css'/>
+    <link href="{{ asset('bundles/alswaggerui/css/reset.css') }}" media='screen' rel='stylesheet' type='text/css'/>
+    <link href="{{ asset('bundles/alswaggerui/css/screen.css') }}" media='screen' rel='stylesheet' type='text/css'/>
+    <link href="{{ asset('bundles/alswaggerui/css/reset.css') }}" media='print' rel='stylesheet' type='text/css'/>
+    <link href="{{ asset('bundles/alswaggerui/css/print.css') }}" media='print' rel='stylesheet' type='text/css'/>
+{% endblock %}
+
 {% block al_swagger_ui_javascripts %}
-    <script src="{{ asset('bundles/alswaggerui/lib/shred.bundle.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/lib/jquery-1.8.0.min.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/lib/jquery.slideto.min.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/lib/jquery.wiggle.min.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/lib/jquery.ba-bbq.min.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/lib/handlebars-1.0.0.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/lib/underscore-min.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/lib/backbone-min.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/lib/swagger.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/js/swagger-ui.js') }}"></script>
-    <script src="{{ asset('bundles/alswaggerui/lib/highlight.7.3.pack.js') }}"></script>
+    <script src="{{ asset('bundles/alswaggerui/lib/jquery-1.8.0.min.js') }}" type='text/javascript'></script>
+    <script src="{{ asset('bundles/alswaggerui/lib/jquery.slideto.min.js') }}" type='text/javascript'></script>
+    <script src="{{ asset('bundles/alswaggerui/lib/jquery.wiggle.min.js') }}" type='text/javascript'></script>
+    <script src="{{ asset('bundles/alswaggerui/lib/jquery.ba-bbq.min.js') }}" type='text/javascript'></script>
+    <script src="{{ asset('bundles/alswaggerui/lib/handlebars-2.0.0.js') }}" type='text/javascript'></script>
+    <script src="{{ asset('bundles/alswaggerui/lib/underscore-min.js') }}" type='text/javascript'></script>
+    <script src="{{ asset('bundles/alswaggerui/lib/backbone-min.js') }}" type='text/javascript'></script>
+    <script src="{{ asset('bundles/alswaggerui/swagger-ui.js') }}" type='text/javascript'></script>
+    <script src="{{ asset('bundles/alswaggerui/lib/highlight.7.3.pack.js') }}" type='text/javascript'></script>
+    <script src="{{ asset('bundles/alswaggerui/lib/marked.js') }}" type='text/javascript'></script>
+
     {% if auth_config.oauth.enable %}
-    <script src="{{ asset('bundles/alswaggerui/lib/swagger-oauth.js') }}"></script>
+        <script src="{{ asset('bundles/alswaggerui/lib/swagger-oauth.js') }}" type='text/javascript'></script>
     {% endif %}
-<script type="text/javascript">
-    $(function () {
+
+    <script type="text/javascript">
+      $(function () {
         window.swaggerUi = new SwaggerUi({
-            url: {{ resource_list_url|json_encode|raw }},
-            dom_id: "swagger-ui-container",
-            supportedSubmitMethods: {{ js_config.supported_submit_methods|json_encode|raw }},
-            onComplete: function(swaggerApi, swaggerUi){
-                log("Loaded SwaggerUI");
+          url: {{ resource_list_url|json_encode|raw }},
+          dom_id: "swagger-ui-container",
+          supportedSubmitMethods: {{ js_config.supported_submit_methods|json_encode|raw }},
+          onComplete: function(swaggerApi, swaggerUi){
+            console.log('Loaded SwaggerUI');
 
-                if(typeof initOAuth == "function") {
+            if(typeof initOAuth == "function") {
+              initOAuth({
+                clientId: {{ auth_config.oauth.client_id|json_encode|raw }},
+                realm: {{ auth_config.oauth.realm|json_encode|raw }},
+                appName: {{ auth_config.oauth.app_name|json_encode|raw }}
+              });
+            }
 
-                     initOAuth({
-                     clientId: {{ auth_config.oauth.client_id|json_encode|raw }},
-                     realm: {{ auth_config.oauth.realm|json_encode|raw }},
-                     appName: {{ auth_config.oauth.app_name|json_encode|raw }}
-                     });
-                }
-                $('pre code').each(function(i, e) {
-                    hljs.highlightBlock(e)
-                });
-            },
-            onFailure: function(data) {
-                log("Unable to Load SwaggerUI");
-            },
-            docExpansion: {{ js_config.expansion|json_encode|raw }},
-            sorter: {{ js_config.sorter|json_encode|raw }},
-            booleanValues: {{ js_config.boolean_values|json_encode|raw }},
-            highlightSizeThreshold: {{ js_config.highlight_size_threshold|json_encode|raw }}
+            $('pre code').each(function(i, e) {
+              hljs.highlightBlock(e)
+            });
+
+            addApiKeyAuthorization();
+          },
+          onFailure: function(data) {
+            console.log("Unable to Load SwaggerUI - " + data);
+          },
+          docExpansion: {{ js_config.expansion|json_encode|raw }},
+          apisSorter: {{ js_config.sorter|json_encode|raw }},
+          showRequestHeaders: false
         });
+
+        function addApiKeyAuthorization(){
+          var key = encodeURIComponent($('#input_apiKey')[0].value);
+          if(key && key.trim() != "") {
+              var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization({{ auth_config.http.key_name|json_encode|raw }}, key, {{ auth_config.http.delivery|json_encode|raw }});
+              window.swaggerUi.api.clientAuthorizations.add("api_key", apiKeyAuth);
+              console.log("added key " + key);
+          }
+        }
 
         {% if auth_config.http.enable %}
-        $('#input_apiKey').change(function() {
-            var key = $('#input_apiKey')[0].value;
-            log("key: " + key);
-            if(key && key.trim() != "") {
-                log("added key " + key);
-                window.authorizations.add("key", new ApiKeyAuthorization({{ auth_config.http.key_name|json_encode|raw }}, key, {{ auth_config.http.delivery|json_encode|raw }}));
-            }
-        });
+            $('#input_apiKey').change(addApiKeyAuthorization);
+
+            // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
+            /*
+              var apiKey = "myApiKeyXXXX123456789";
+              $('#input_apiKey').val(apiKey);
+            */
         {% endif %}
+
         window.swaggerUi.load();
     });
-</script>
+    </script>
 {% endblock %}
+
 {% block al_swagger_ui_auth_form %}
+    {% if false %}
+        <form id='api_selector'>
+            <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
+            <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
+            <div class='input'><a id="explore" href="#">Explore</a></div>
+        </form>
+    {% endif %}
 {% endblock %}
+
 {% block al_swagger_ui_content %}
     <div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
     <div id="swagger-ui-container" class="swagger-ui-wrap"></div>

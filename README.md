@@ -27,7 +27,7 @@ al_swagger_ui:
         sorter:               null
         highlight_size_threshold:  null
         boolean_values: ['true', 'false']
-    authentication:
+    auth_config:
         oauth:
             enable:               false
             client_id:            null
