@@ -77,7 +77,7 @@ class StaticResourcesController extends Controller
 
     private function getStaticResourcesDir()
     {
-        return $this->get('service_container')->getParameter('al_swagger_ui.static_resources_dir');
+        return $this->get('kernel')->getRootDir() . '/../' . $this->get('service_container')->getParameter('al_swagger_ui.static_resources_dir');
     }
 
     private function getResourceListFilename()
