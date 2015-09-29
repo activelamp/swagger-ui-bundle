@@ -3,7 +3,7 @@ imports:
 
 al_swagger_ui:
     resource_list: http://petstore.swagger.wordnik.com/api/api-docs
-    authentication:
+    auth_config:
         oauth:
             enable: false
         http:

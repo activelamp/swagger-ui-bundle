@@ -21,7 +21,7 @@ al_swagger_ui:
         sorter: alpha
         highlight_size_threshold: 100
         boolean_values: [0, 1]
-    authentication:
+    auth_config:
         oauth:
             enable: true
             realm: foobar
