@@ -7,6 +7,8 @@ Creates a [swagger-ui](https://github.com/wordnik/swagger-ui) page (something li
 * [x] Configurable authentication methods
 * [x] Unit tests
 
+#### For Swagger v1.x support, use the `v0.2.1` of this repository. `dev-master` is now using Swagger v2.
+
 # Documentation
 
 * [Installation & Usage](https://github.com/activelamp/swagger-ui-bundle/blob/master/Resources/doc/installation-and-usage.md)
