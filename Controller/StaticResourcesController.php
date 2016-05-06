@@ -36,13 +36,13 @@ class StaticResourcesController extends Controller
                 throw new \Exception(sprintf('Cannot find resource list: %s', $baseFilename));
             }
 
-            $resourcesList = $file->first()->getContents();
+            $resourcesList = $file->getContents();
             $resourcesList = json_decode($resourcesList);
 
             foreach ($resourcesList->tags as $tag) {
                 $file = $finder->in($dir)->files()->name(strtolower($tag->name));
 
-                $resourcesList->paths .= $file->first()->getContents();
+                $resourcesList->paths .= $file->getContents();
             }
 
             $response = new Response(json_encode($resourcesList));
