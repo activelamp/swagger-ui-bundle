@@ -7,6 +7,7 @@
  */
 
 namespace ActiveLAMP\Bundle\SwaggerUIBundle\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -25,23 +26,29 @@ class StaticResourcesController extends Controller
     public function resourceListAction(Request $request)
     {
         $dir = $this->getStaticResourcesDir();
-        $filename = $this->getResourceListFilename();
+        $baseFilename = $this->getResourceListFilename();
 
         try {
-
             $finder = new Finder();
-            $files = $finder->in($dir)->files()->name($filename);
+            $file = $finder->in($dir)->files()->name($baseFilename);
 
-            if (count($files) === 0) {
-                throw new \Exception(sprintf('Cannot find resource list: %s', $filename));
+            if (count($file) === 0) {
+                throw new \Exception(sprintf('Cannot find resource list: %s', $baseFilename));
             }
 
-            foreach ($files as $file) {
-                $response = new Response($file->getContents());
-                $response->headers->set('Content-type', 'application/json');
-                return $response;
+            $resourcesList = $file->first()->getContents();
+            $resourcesList = json_decode($resourcesList);
+
+            foreach ($resourcesList->tags as $tag) {
+                $file = $finder->in($dir)->files()->name(strtolower($tag->name));
+
+                $resourcesList->paths .= $file->first()->getContents();
             }
 
+            $response = new Response(json_encode($resourcesList));
+            $response->headers->set('Content-type', 'application/json');
+
+            return $response;
         } catch (\Exception $e) {
             throw $this->createNotFoundException($e->getMessage());
         }
