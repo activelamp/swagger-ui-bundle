@@ -30,19 +30,25 @@ class StaticResourcesController extends Controller
 
         try {
             $finder = new Finder();
-            $file = $finder->in($dir)->files()->name($baseFilename);
+            $files = $finder->in($dir)->files()->name($baseFilename);
 
-            if (count($file) === 0) {
+            if (count($files) === 0) {
                 throw new \Exception(sprintf('Cannot find resource list: %s', $baseFilename));
             }
 
-            $resourcesList = $file->getContents();
-            $resourcesList = json_decode($resourcesList);
+            $files = iterator_to_array($files->getIterator());
 
-            foreach ($resourcesList->tags as $tag) {
-                $file = $finder->in($dir)->files()->name(strtolower($tag->name));
+            $resourcesList = json_decode(array_pop($files)->getContents(), JSON_OBJECT_AS_ARRAY);
 
-                $resourcesList->paths .= $file->getContents();
+            foreach ($resourcesList['tags'] as $tag) {
+                $finder = new Finder();
+
+                $files = $finder->in($dir)->files()->name(sprintf('%s.json', strtolower($tag['name'])));
+                $files = iterator_to_array($files->getIterator());
+
+                $paths = json_decode(array_pop($files)->getContents(), JSON_OBJECT_AS_ARRAY);
+
+                $resourcesList['paths'] = array_merge($resourcesList['paths'], $paths);
             }
 
             $response = new Response(json_encode($resourcesList));
