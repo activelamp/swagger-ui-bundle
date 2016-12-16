@@ -7,6 +7,7 @@
  */
 
 namespace ActiveLAMP\Bundle\SwaggerUIBundle\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -25,23 +26,35 @@ class StaticResourcesController extends Controller
     public function resourceListAction(Request $request)
     {
         $dir = $this->getStaticResourcesDir();
-        $filename = $this->getResourceListFilename();
+        $baseFilename = $this->getResourceListFilename();
 
         try {
-
             $finder = new Finder();
-            $files = $finder->in($dir)->files()->name($filename);
+            $files = $finder->in($dir)->files()->name($baseFilename);
 
             if (count($files) === 0) {
-                throw new \Exception(sprintf('Cannot find resource list: %s', $filename));
+                throw new \Exception(sprintf('Cannot find resource list: %s', $baseFilename));
             }
 
-            foreach ($files as $file) {
-                $response = new Response($file->getContents());
-                $response->headers->set('Content-type', 'application/json');
-                return $response;
+            $files = iterator_to_array($files->getIterator());
+
+            $resourcesList = json_decode(array_pop($files)->getContents(), JSON_OBJECT_AS_ARRAY);
+
+            foreach ($resourcesList['tags'] as $tag) {
+                $finder = new Finder();
+
+                $files = $finder->in($dir)->files()->name(sprintf('%s.json', strtolower($tag['name'])));
+                $files = iterator_to_array($files->getIterator());
+
+                $paths = json_decode(array_pop($files)->getContents(), JSON_OBJECT_AS_ARRAY);
+
+                $resourcesList['paths'] = array_merge($resourcesList['paths'], $paths);
             }
 
+            $response = new Response(json_encode($resourcesList));
+            $response->headers->set('Content-type', 'application/json');
+
+            return $response;
         } catch (\Exception $e) {
             throw $this->createNotFoundException($e->getMessage());
         }
